@@ -5,18 +5,17 @@ export default function Footer() {
         <footer className="fixed bottom-0 left-0 w-full flex gap-6 flex-wrap items-center justify-center bg-white py-3">
             <a
                 className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-                href="#"
+                href="https://webstatus.dev/"
                 target="_blank"
                 rel="noopener noreferrer"
             >
                 <Image
                     aria-hidden
-                    src="/file.svg"
+                    src="/baseline-wordmark.png"
                     alt="File icon"
-                    width={16}
-                    height={16}
+                    width={96}
+                    height={32}
                 />
-                Learn
             </a>
 
             <a

@@ -97,6 +97,7 @@ export async function POST(request: any) {
 
       // check for CSS only : Look for 'css.properties.' in the compat_features array.
       if (featureData) {
+        // console.log(featureData);
         isCssProperty = featureData.compat_features?.some((compat) =>
           compat.startsWith("css.properties.")
         );
@@ -111,13 +112,13 @@ export async function POST(request: any) {
 
       report.summary[status]++;
       report.summary.total++;
-      // report.properties[prop] = { status };
+      report.properties[status] = [...(report.properties[status] || []), prop];
     }
 
-    console.log(report);
+    // console.log(report);
 
     return NextResponse.json({
-      message: $.html(),
+      message: report,
       success: true,
     });
   } catch (error: any) {
