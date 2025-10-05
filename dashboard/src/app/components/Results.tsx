@@ -1,10 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import TableComponent from "./TableData";
+
 
 export default function Result({ url }: { url: string }) {
     const [loading, isLoading] = useState(false);
     const [result, setResult] = useState({});
+    const [tableData, setTableData] = useState([]);
 
     useEffect(() => {
         isLoading(true);
@@ -21,72 +24,6 @@ export default function Result({ url }: { url: string }) {
         }
         isLoading(false);
     }
-
-    // Mock data for CSS properties and their status
-    const cssData = {
-        high: [
-            {
-                name: "filter",
-                baseline: "high",
-                support: "99%",
-                description: "Applies graphic effects like blur, sepia, and brightness.",
-            },
-            {
-                name: "border-radius",
-                baseline: "high",
-                support: "99%",
-                description: "Creates rounded corners on an element.",
-            },
-            {
-                name: "flexbox",
-                baseline: "high",
-                support: "99%",
-                description:
-                    "A one-dimensional layout method for arranging items in rows or columns.",
-            },
-            {
-                name: "grid",
-                baseline: "high",
-                support: "98%",
-                description: "A two-dimensional layout system for CSS.",
-            },
-            {
-                name: "transform",
-                baseline: "high",
-                support: "99%",
-                description: "Applies 2D or 3D transformations to an element.",
-            },
-        ],
-        low: [
-            {
-                name: "subgrid",
-                baseline: "low",
-                support: "17%",
-                description:
-                    "Allows nested grids to inherit the track sizing of their parent grid.",
-            },
-            {
-                name: "backdrop-filter",
-                baseline: "low",
-                support: "75%",
-                description: "Applies filter effects to the area behind an element.",
-            },
-            {
-                name: "has()",
-                baseline: "low",
-                support: "80%",
-                description:
-                    "The :has() pseudo-class selects an element if any of the relative selectors match.",
-            },
-            {
-                name: "scroll-snap",
-                baseline: "low",
-                support: "78%",
-                description:
-                    "Allows developers to create well-controlled scrolling experiences.",
-            },
-        ],
-    };
 
     return (
         <>
@@ -127,7 +64,14 @@ export default function Result({ url }: { url: string }) {
                                                 </span>
                                             </div>
 
-                                            <p className="text-sm mb-2 opacity-80">These are the rock-solid features of the web. They have been supported by all major browsers for over 30 months.</p>
+                                            <p className="text-sm mb-2 opacity-80">
+                                                These are the rock-solid features of the web. They have been supported by all major browsers for over 30 months.
+                                            </p>
+
+                                            <div className="flex justify-end mt-2">
+                                                <button onClick={(e) => setTableData((result as any)?.properties.high)} type="button" className="py-0.5 px-2 me-2 mb-2 text-sm font-medium text-green-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-4 focus:ring-gray-100 ">View List→</button>
+
+                                            </div>
                                         </div>
 
                                         <div className=" p-6 rounded-xl shadow-lg transition-all duration-300 border-l-4 border-blue-500"
@@ -154,6 +98,11 @@ export default function Result({ url }: { url: string }) {
                                             </div>
 
                                             <p className="text-sm mb-2 opacity-80">These are modern, cutting-edge features supported in the latest versions of all major browsers. They haven't yet reached the 30-month milestone.</p>
+
+                                            <div className="flex justify-end mt-2">
+                                                <button onClick={(e) => setTableData((result as any)?.properties.low)} type="button" className="py-0.5 px-2 me-2 mb-2 text-sm font-medium text-blue-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 ">View List→</button>
+
+                                            </div>
                                         </div>
 
                                         <div className=" p-6 rounded-xl shadow-lg transition-all duration-300 border-l-4 border-orange-500"
@@ -180,8 +129,17 @@ export default function Result({ url }: { url: string }) {
                                             </div>
 
                                             <p className="text-sm mb-2 opacity-80">These features are not part of the Baseline standard. They might be experimental, browser-specific (e.g., -webkit-), or non-standard.</p>
+
+                                            <div className="flex justify-end mt-2">
+                                                <button onClick={(e) => setTableData((result as any)?.properties.not_found)} type="button" className="py-0.5 px-2 me-2 mb-2 text-sm font-medium text-orange-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-orange-700 focus:z-10 focus:ring-4 focus:ring-gray-100 ">View List→</button>
+
+                                            </div>
                                         </div>
                                     </div>
+                                </section>
+
+                                <section className="mb-10">
+                                    {tableData.length > 0 && <TableComponent data={tableData} />}
                                 </section>
                             </main>
                         </div>

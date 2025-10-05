@@ -23,10 +23,10 @@ export default function Home() {
         animate={{ y: showResult ? 0 : 200 }}
         transition={{ type: "spring", stiffness: 80 }}
       >
-        <div className="flex gap-2">
+        <div className="flex gap-2 min-w-screen items-center justify-center backdrop-blur-2xl">
           <input
             type="url"
-            placeholder="Enter your URL here"
+            placeholder="Enter web URL here"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             className="border border-gray-300 rounded-md px-4 py-2 w-72"
@@ -55,7 +55,7 @@ export default function Home() {
       <AnimatePresence>
         {showResult && (
           <motion.div
-            className="w-full"
+            className="w-full h-150"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0 }}

@@ -110,9 +110,17 @@ export async function POST(request: any) {
         status = "not_found";
       }
 
+      const featureDataObj = {
+        prop: prop,
+        featureData: featureData,
+      };
+
       report.summary[status]++;
       report.summary.total++;
-      report.properties[status] = [...(report.properties[status] || []), prop];
+      report.properties[status] = [
+        ...(report.properties[status] || []),
+        featureDataObj,
+      ];
     }
 
     // console.log(report);
