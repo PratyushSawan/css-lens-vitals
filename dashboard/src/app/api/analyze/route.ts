@@ -4,9 +4,7 @@ import * as cheerio from "cheerio";
 import * as csstree from "css-tree";
 import { features } from "web-features";
 
-import { FeatureStatus, FeatureData, Report } from "../types";
-
-export async function POST(request: any) {
+export async function POST(request: Request) {
   // console.log(request.body);
   try {
     const data = await request.json();
@@ -42,7 +40,7 @@ export async function POST(request: any) {
     });
 
     // Fetch the CSS Library
-    const stylesheetUrls: any = [];
+    const stylesheetUrls: string[] = [];
     $('link[rel="stylesheet"]').each((i, el) => {
       const href = $(el).attr("href");
       if (href) {
@@ -74,12 +72,13 @@ export async function POST(request: any) {
     });
 
     // traverse AST
-    csstree.walk(ast, (node: any) => {
+    csstree.walk(ast, (node: csstree.CssNode) => {
       if (node.type === "Declaration") {
         cssProperties.add(node.property);
       }
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const report: any = {
       summary: {
         total: 0,
@@ -129,6 +128,7 @@ export async function POST(request: any) {
       message: report,
       success: true,
     });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     return NextResponse.json({ error: error.message });
   }

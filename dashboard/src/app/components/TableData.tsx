@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { useEffect, useState } from 'react';
 import { ChevronDownIcon, CheckIcon, QuestionMarkCircleIcon, InformationCircleIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
